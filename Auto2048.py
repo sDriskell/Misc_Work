@@ -5,6 +5,7 @@ using Selenium: https://play2048.co/
 Requires geckodriver to added to your PATH.
 
 """
+import matplotlib.pyplot as plt
 from selenium import webdriver
 from selenium.webdriver.common.keys import Keys
 
@@ -12,6 +13,8 @@ URL = "https://play2048.co/"
 
 
 def auto_input(browser: webdriver.Firefox) -> int:
+    """Uses Selenium webdriver to manipulate inputs into browser game to simulate
+    one or more games of 2048 for user."""
     html = browser.find_element_by_tag_name('html')
     retry_button = browser.find_element_by_class_name("retry-button")
     new_game_button = browser.find_element_by_class_name("restart-button")
@@ -28,7 +31,12 @@ def auto_input(browser: webdriver.Firefox) -> int:
     return score
 
 
-# TODO: track high score
+def graph_results(total_score: list):
+    """Visualize scores from total_score list in different forms of graphs"""
+    plt.plot(total_score, 'ro')
+    plt.xlabel('Game Number')
+    plt.ylabel('Score')
+    plt.show()
 
 
 def main():
@@ -39,7 +47,7 @@ def main():
     games = int(input("How many times do you want to play? "))
     for i in range(0, games):
         total_score.append(auto_input(browser))
-    print(total_score)
+    graph_results(total_score)
 
 
 if __name__ == '__main__':
