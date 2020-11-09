@@ -28,7 +28,7 @@ def auto_input(browser: webdriver.Firefox) -> int:
     score = browser.find_element_by_class_name("score-container").text
     retry_button.click()
     new_game_button.click()
-    return score
+    return int(score)
 
 
 def graph_results(total_score: list):
